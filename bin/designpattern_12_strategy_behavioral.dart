@@ -6,12 +6,16 @@ void main(List<String> args) {
   print('Upper Case Strategy Sample: ' + sampleUpperCasePrinter.print('Sample Message Text'));
 }
 
+// ---------------------------------------------------------------------------------------------------
+
 class Printer {
   final PrintStrategy _strategy;
   Printer({PrintStrategy strategy}) : _strategy = strategy;
 
   String print(String message) => _strategy.print(message);
 }
+
+// ---------------------------------------------------------------------------------------------------
 
 abstract class PrintStrategy {
   String print(String message);

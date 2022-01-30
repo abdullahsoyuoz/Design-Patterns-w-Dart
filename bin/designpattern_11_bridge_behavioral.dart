@@ -1,43 +1,37 @@
+// ignore_for_file: unused_local_variable
 void main(List<String> args) {
-  final speakerController = RemoteController(device: Speaker());
-  speakerController.turnOn();
-
-  final monitorController = RemoteController(device: Monitor());
-  monitorController.turnOn();
+  final speakerController = RemoteController(action: Speaker())..turnOn();
+  final monitorController = RemoteController(action: Monitor())..turnOn();
 }
 
-abstract class ControllerBase {
-  DeviceBase device;
-  void turnOn() {
-    device.run();
-  }
+// ---------------------------------------------------------------------------------------------------
+
+abstract class IController {
+  IAction action;
+  void turnOn() => action.doAction();
 }
 
-class RemoteController extends ControllerBase {
+class RemoteController extends IController {
   @override
-  DeviceBase device;
-  RemoteController({this.device});
+  IAction action;
+  RemoteController({this.action});
 
   @override
-  void turnOn() {
-    device.run();
-  }
+  void turnOn() => action.doAction();
 }
 
-abstract class DeviceBase {
-  void run();
+// ---------------------------------------------------------------------------------------------------
+
+abstract class IAction {
+  void doAction();
 }
 
-class Speaker extends DeviceBase {
+class Speaker extends IAction {
   @override
-  void run() {
-    print('Speaker running...');
-  }
+  void doAction() => print('Speaker running...');
 }
 
-class Monitor extends DeviceBase {
+class Monitor extends IAction {
   @override
-  void run() {
-    print('Monitor running...');
-  }
+  void doAction() => print('Monitor running...');
 }

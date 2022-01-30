@@ -1,40 +1,36 @@
+import 'Model/04_builder_model.dart';
+
 void main(List<String> args) {
-  var person = PersonBuilder().name('Barış').surname('Manço').age(22).builder();
-  print('${person.name}, ${person.surname}, ${person.age},');
+  var mercedes = VehicleBuilder().brandBuild('Mercedes').modelBuild('C63 Black Edition').priceBuild(258.000).build();
+  var bmw = VehicleBuilder().brandBuild('BMW').modelBuild('M4 GTS').build();
+
+  print(mercedes);
+  print(bmw);
 }
 
-class Person {
-  String name;
-  String surname;
-  int age;
-  Person(PersonBuilder builder) {
-    name = builder._name;
-    surname = builder._surname;
-    age = builder._age;
-  }
-}
+// ---------------------------------------------------------------------------------------------------
 
-class PersonBuilder {
-  String _name;
-  String _surname;
-  int _age;
+class VehicleBuilder {
+  String brand;
+  String model;
+  double price;
 
-  PersonBuilder name(String name) {
-    _name = name;
+  VehicleBuilder brandBuild(String data) {
+    brand = data;
     return this;
   }
 
-  PersonBuilder surname(String surname) {
-    _surname = surname;
+  VehicleBuilder modelBuild(String data) {
+    model = data;
     return this;
   }
 
-  PersonBuilder age(int age) {
-    _age = age;
+  VehicleBuilder priceBuild(double data) {
+    price = data;
     return this;
   }
 
-  Person builder() {
-    return Person(this);
+  Vehicle build() {
+    return Vehicle(this);
   }
 }

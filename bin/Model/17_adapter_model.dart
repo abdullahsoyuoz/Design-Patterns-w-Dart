@@ -1,3 +1,13 @@
+class ContactModel {
+  final String name;
+  final String mail;
+  final String company;
+  const ContactModel({this.name, this.mail, this.company});
+}
+
+// ---------------------------------------------------------------------------------------------------
+
+
 final String jsonContact = '''
         {
           "contacts" : 

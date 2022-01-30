@@ -1,37 +1,39 @@
 void main(List<String> args) {
-  var modelA = ModelA('a');
-  var modelA1 = ModelA('\ta1');
-  var modelA2 = ModelA('\ta2');
-  var modelA11 = ModelA('\t\ta11');
-  var modelA12 = ModelA('\t\ta12');
-  var modelA21 = ModelA('\t\ta21');
-  var modelA22 = ModelA('\t\ta22');
+  var boss = Person('boss');
+  var chef1 = Person('\tchef 1');
+  var chef2 = Person('\tchef 2');
+  var employee11 = Person('\t\temployee 11');
+  var employee12 = Person('\t\temployee 12');
+  var employee21 = Person('\t\temployee 21');
+  var employee22 = Person('\t\temployee 22');
 
-  modelA.addSub(modelA1);
-  modelA.addSub(modelA2);
-  modelA1.addSub(modelA11);
-  modelA1.addSub(modelA12);
-  modelA2.addSub(modelA21);
-  modelA2.addSub(modelA22);
+  boss.addSub(chef1);
+  boss.addSub(chef2);
+  chef1.addSub(employee11);
+  chef1.addSub(employee12);
+  chef2.addSub(employee21);
+  chef2.addSub(employee22);
 
-  modelA.doAction();
+  boss.doAction();
 }
+
+// ---------------------------------------------------------------------------------------------------
 
 abstract class ModelBase {
   String name;
   void doAction();
 }
 
-class ModelA implements ModelBase {
+class Person implements ModelBase {
   @override
   String name;
-  List<ModelA> subList;
+  List<Person> subList;
 
-  ModelA(this.name) {
-    subList = <ModelA>[];
+  Person(this.name) {
+    subList = <Person>[];
   }
 
-  void addSub(ModelA item) => subList.add(item);
+  void addSub(Person item) => subList.add(item);
 
   @override
   void doAction() {

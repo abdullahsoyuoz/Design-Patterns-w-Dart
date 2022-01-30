@@ -23,7 +23,7 @@ class SampleModel {
 
   Backup Recover() => Backup(_name);
   @override
-  String toString() => 'Güncel isim: $_name';
+  String toString() => 'Güncel isim: $_name | hashCode: ${this.hashCode}';
 }
 
 class Backup {

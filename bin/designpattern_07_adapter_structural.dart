@@ -1,97 +1,79 @@
 import 'dart:convert';
 import 'package:xml/xml.dart';
-
-import 'Data/data.dart';
+import 'Model/17_adapter_model.dart';
+import 'Mixins/AdapterMixin.dart';
 
 void main(List<String> args) {
-  XmlContactAdapter(XmlContactApi(xmlContact)).getContact().forEach((element) {
-    print('${element.name.toString()}, ${element.mail.toString()}, ${element.company.toString()}');
-  });
-
-  print('\n--------\n');
-  JsonContactAdapter(JsonContactApi(jsonContact))
-      .getContact()
-      .forEach((element) {
-    print('${element.name.toString()}, ${element.mail.toString()}, ${element.company.toString()}');
-  });
+  XmlContactAdapter(XmlContactApi(xmlContact)).getContact();
+  print('------------------------------------------');
+  JsonContactAdapter(JsonContactApi(jsonContact)).getContact();
 }
 
-class Contact {
-  final String name;
-  final String mail;
-  final String company;
-  const Contact({this.name, this.mail, this.company});
+// ---------------------------------------------------------------------------------------------------
+
+class IContactApi {
+  final contact;
+  IContactApi(this.contact);
 }
 
-class JsonContactApi {
-  final String contactsJSON;
-  JsonContactApi(this.contactsJSON);
-  String getContactsJson() => contactsJSON;
+class JsonContactApi extends IContactApi {
+  JsonContactApi(contact) : super(contact);
+  dynamic getContactsJson() => super.contact;
 }
 
-class XmlContactApi {
-  final String contacsXML;
-  XmlContactApi(this.contacsXML);
-  String getContactsXml() => contacsXML;
+class XmlContactApi extends IContactApi {
+  XmlContactApi(contact) : super(contact);
+  dynamic getContactsXml() => super.contact;
 }
 
-abstract class IContactAdapter {
-  List<Contact> getContact();
+// ---------------------------------------------------------------------------------------------------
+
+abstract class IContactAdapter with AdapterToString {
+  void getContact();
 }
 
-class JsonContactAdapter implements IContactAdapter {
+class JsonContactAdapter extends IContactAdapter {
   final JsonContactApi _api;
   JsonContactAdapter(this._api) {
     print('--- via JsonContactAdapter');
   }
   @override
-  List<Contact> getContact() {
-    var contactJson = _api.getContactsJson();
-    var contactList = _parseContactJson(contactJson);
+  void getContact() => AdaptToString(_parseContactJson(_api.getContactsJson()));
 
-    return contactList;
-  }
-
-  List<Contact> _parseContactJson(String contactsJson) {
+  List<ContactModel> _parseContactJson(dynamic contactsJson) {
     var contactMap = json.decode(contactsJson) as Map<String, dynamic>;
     var contactJsonList = contactMap['contacts'] as List;
     var contactsList = contactJsonList
-        .map((json) => Contact(
+        .map((json) => ContactModel(
             name: json['name'], mail: json['mail'], company: json['company']))
         .toList();
-
     return contactsList;
   }
 }
 
-class XmlContactAdapter implements IContactAdapter {
+class XmlContactAdapter extends IContactAdapter {
   final XmlContactApi _api;
   XmlContactAdapter(this._api) {
     print('--- via XmlContactAdapter');
   }
   @override
-  List<Contact> getContact() {
-    var contactXml = _api.getContactsXml();
-    var contactList = _parseContactXml(contactXml);
+  void getContact() => AdaptToString(_parseContactXml(_api.getContactsXml()));
 
-    return contactList;
-  }
-
-  List<Contact> _parseContactXml(String contactXml) {
+  List<ContactModel> _parseContactXml(dynamic contactXml) {
     var xmlDocument = XmlDocument.parse(contactXml);
-    var contactList = <Contact>[];
+    var contactList = <ContactModel>[];
     for (var item in xmlDocument.findAllElements('contact')) {
       var name = item.findElements('name').single.text;
       var mail = item.findElements('mail').single.text;
       var company = item.findElements('company').single.text;
 
-      contactList.add(Contact(
+      contactList.add(ContactModel(
         name: name,
         mail: mail,
         company: company,
       ));
     }
-
     return contactList;
   }
 }
+

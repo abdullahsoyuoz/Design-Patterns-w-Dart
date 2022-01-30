@@ -1,40 +1,50 @@
 void main(List<String> arguments) {
-  var sampleProviderA = SampleProvider(SampleA());
-  sampleProviderA.Process();
+  var databaseProvider;
 
-  var sampleProviderB = SampleProvider(SampleB());
-  sampleProviderB.Process();
+  databaseProvider = DatabaseProvider(Firestore());
+  databaseProvider.Query();
+
+  databaseProvider = DatabaseProvider(MongoDB());
+  databaseProvider.Query();
 }
 
-class SampleProvider {  // DEPENDENCY INJECTION
-  final ISample _iSample;
-  SampleProvider(this._iSample);
-  void Process() => _iSample.Process();
+// ---------------------------------------------------------------------------------------------------
+  // DEPENDENCY INJECTION
+
+class DatabaseProvider {
+  final IDatabase _IDatabase;
+  DatabaseProvider(this._IDatabase);
+  void Query() => _IDatabase.Query();
 }
 
-class ISample {
-  void Process() {
+// ---------------------------------------------------------------------------------------------------
+
+class IDatabase {
+  void Query() {
     print('At runtime this process not running...');
   }
 }
 
-class SampleA implements ISample {
-  SampleA() {
-    print('SampleA object is constructed...');
+// ---------------------------------------------------------------------------------------------------
+
+class Firestore implements IDatabase {
+  Firestore() {
+    print('Firestore running...');
   }
 
   @override
-  void Process() {
-    print('SampleA Process() is running...');
+  void Query() {
+    print('Firestore Query() is running...');
   }
 }
 
-class SampleB implements ISample {
-  SampleB() {
-    print('SampleB object is constructed...');
+// can be replicate in this way.
+class MongoDB implements IDatabase {
+  MongoDB() {
+    print('MongoDB running...');
   }
   @override
-  void Process() {
-    print('SampleB Process() is running...');
+  void Query() {
+    print('MongoDB Query() is running...');
   }
 }

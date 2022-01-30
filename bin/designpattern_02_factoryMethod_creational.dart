@@ -1,36 +1,24 @@
 void main(List<String> args) {
-  var mobileScreen = FactoryProvider(MobileScreenFactory());
-  var webScreen = FactoryProvider(WebScreenFactory());
-  mobileScreen.Drawer();
-  webScreen.Drawer();
+  var mobileScreenFactoryProvider = FactoryProvider(MobileScreenFactory());
+  mobileScreenFactoryProvider.Producer();
+
+  var monitorScreenFactoryProvider = FactoryProvider(MonitorScreenFactory());
+  monitorScreenFactoryProvider.Producer();
 }
+
+// ---------------------------------------------------------------------------------------------------
 
 class FactoryProvider {
-  final IFactory _factory;
   FactoryProvider(this._factory);
-  void Drawer() {
+  final IFactory _factory;
+  
+  void Producer() {
     var screen = _factory.CreateScreen();
-    screen.Draw();
+    screen.Produce();
   }
 }
 
-class IScreen {
-  void Draw() {}
-}
-
-class MobileScreen implements IScreen {
-  @override
-  void Draw() {
-    print('Mobile Screen Drawn');
-  }
-}
-
-class WebScreen implements IScreen {
-  @override
-  void Draw() {
-    print('Web Screen Drawn');
-  }
-}
+// ---------------------------------------------------------------------------------------------------
 
 class IFactory {
   IScreen CreateScreen() {
@@ -45,9 +33,29 @@ class MobileScreenFactory implements IFactory {
   }
 }
 
-class WebScreenFactory implements IFactory {
+class MonitorScreenFactory implements IFactory {
   @override
   IScreen CreateScreen() {
-    return WebScreen();
+    return MonitorScreen();
+  }
+}
+
+// ---------------------------------------------------------------------------------------------------
+
+class IScreen {
+  void Produce() {}
+}
+
+class MobileScreen implements IScreen {
+  @override
+  void Produce() {
+    print('Mobile Screen Produced. OK');
+  }
+}
+
+class MonitorScreen implements IScreen {
+  @override
+  void Produce() {
+    print('Monitor Screen Produced. OK');
   }
 }

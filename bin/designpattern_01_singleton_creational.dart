@@ -1,15 +1,19 @@
 void main(List<String> args) {
-  var sampleA = SingletonObject();
-  var sampleB = SingletonObject();
-  print('----------');
-  print('identical? : ${identical(sampleA, sampleB)}\n\n');
+  var sampleA = DatabaseConnection();
+  // other process's
+  var sampleB = DatabaseConnection();
+  print('database connection\'s identical? : ${sampleA == sampleB}');
 }
 
-class SingletonObject {
-  static final SingletonObject _singletonObject = SingletonObject._internal();
-  factory SingletonObject() {
-    print('${_singletonObject.hashCode} constructed...');
-    return _singletonObject;
+class DatabaseConnection {
+  static final DatabaseConnection _connectionObject =
+      DatabaseConnection._internal();
+  DatabaseConnection._internal();
+  factory DatabaseConnection() => _connectionObject;
+
+  // identical method compare at HashCode level.
+  @override
+  bool operator ==(Object object) {
+    return identical(this, object);
   }
-  SingletonObject._internal();
 }
