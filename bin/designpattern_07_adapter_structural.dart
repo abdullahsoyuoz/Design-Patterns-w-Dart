@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:xml/xml.dart';
-import 'Model/17_adapter_model.dart';
-import 'Mixins/AdapterMixin.dart';
+import 'Data/ContactData.dart';
+import 'Model/Contact.dart';
+import 'Mixin/AdapterMixin.dart';
 void main(List<String> args) {
   XmlContactAdapter(XmlContactApi(xmlContact)).getContact();
   print('------------------------------------------');
@@ -35,11 +36,11 @@ class JsonContactAdapter extends IContactAdapter {
   @override
   void getContact() => AdaptToString(_parseContactJson(_api.getContactsJson()));
 
-  List<ContactModel> _parseContactJson(dynamic contactsJson) {
+  List<Contact> _parseContactJson(dynamic contactsJson) {
     var contactMap = json.decode(contactsJson) as Map<String, dynamic>;
     var contactJsonList = contactMap['contacts'] as List;
     var contactsList = contactJsonList
-        .map((json) => ContactModel(
+        .map((json) => Contact(
             name: json['name'], mail: json['mail'], company: json['company']))
         .toList();
     return contactsList;
@@ -54,15 +55,15 @@ class XmlContactAdapter extends IContactAdapter {
   @override
   void getContact() => AdaptToString(_parseContactXml(_api.getContactsXml()));
 
-  List<ContactModel> _parseContactXml(dynamic contactXml) {
+  List<Contact> _parseContactXml(dynamic contactXml) {
     var xmlDocument = XmlDocument.parse(contactXml);
-    var contactList = <ContactModel>[];
+    var contactList = <Contact>[];
     for (var item in xmlDocument.findAllElements('contact')) {
       var name = item.findElements('name').single.text;
       var mail = item.findElements('mail').single.text;
       var company = item.findElements('company').single.text;
 
-      contactList.add(ContactModel(
+      contactList.add(Contact(
         name: name,
         mail: mail,
         company: company,

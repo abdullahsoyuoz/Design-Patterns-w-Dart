@@ -1,4 +1,4 @@
-import 'Model/14_chain_of_responsibilty_model.dart';
+import 'Model/Person.dart';
 
 void main(List<String> args) {
   var employeeJack = Junior(Person('Employee Jack', 45));
