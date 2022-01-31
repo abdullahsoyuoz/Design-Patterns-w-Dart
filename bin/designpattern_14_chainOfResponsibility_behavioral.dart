@@ -10,9 +10,7 @@ void main(List<String> args) {
   employeeKemal.setSenior(seniorMatt);
   employeeKemal.Handle();
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 class PositionBase {
   PositionBase _senior;
   void setSenior(PositionBase senior) => _senior = senior;

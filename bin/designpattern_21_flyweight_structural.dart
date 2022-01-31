@@ -1,31 +1,27 @@
 void main(List<String> args) {
   var artboard = Artboard().Create();
 
-  var a1 = Element(Elements.A);
-  var a2 = Element(Elements.A);
-  var a3 = Element(Elements.A);
-  var b1 = Element(Elements.B);
-  var b2 = Element(Elements.B);
-  var c1 = Element(Elements.C);
-  var d1 = Element(Elements.D);
-  var d2 = Element(Elements.D);
-  var d3 = Element(Elements.D);
-  var d4 = Element(Elements.D);
+  var elementList = [
+    Element(Elements.A),
+    Element(Elements.A),
+    Element(Elements.B),
+    Element(Elements.C),
+    Element(Elements.D),
+    Element(Elements.D)
+  ];
 
-  artboard.AddElement(a1);
-  artboard.AddElement(a2);
-  artboard.AddElement(a3);
-  artboard.AddElement(b1);
-  artboard.AddElement(b2);
-  artboard.AddElement(c1);
-  artboard.AddElement(d1);
-  artboard.AddElement(d2);
-  artboard.AddElement(d3);
-  artboard.AddElement(d4);
+  elementList.forEach((element) {
+    artboard.AddElement(element);
+  });
 
-  print('\nThe number of different elements created: ${artboard.CountElement}');
+  print(
+      '\nThe number of different elements created: ${artboard.CountElement}\n');
+
+  Artboard.list.forEach((element) {
+    element.Use();
+  });
 }
-
+// ---------------------------------------------------------------------------------------------------
 enum Elements { A, B, C, D }
 
 abstract class ElementTemplate {
@@ -54,7 +50,7 @@ class Element extends ElementTemplate with Comparable {
     }
   }
 }
-
+// ---------------------------------------------------------------------------------------------------
 class Artboard {
   Artboard artboard;
   static List<Element> list;

@@ -1,31 +1,27 @@
 void main(List<String> args) {
-  var modelA = SampleModel('SampleA');
-  print(modelA);
+  var sampleA = SampleModel('SampleA');
+  var sampleRecycler = Recycler()..setBackup = sampleA.Recover();
 
-  var taker = Taker();
-  taker.setBackup = modelA.Recover();
+  sampleA.name = 'SampleB';
+  print(sampleA);
 
-  modelA._name = 'SampleB';
-  print(modelA);
-
-  modelA.Restore(taker._backup);
-  print(modelA);
+  sampleA.Restore(sampleRecycler._backup);
+  print(sampleA);
 }
-
+// ---------------------------------------------------------------------------------------------------
 class SampleModel {
-  String _name;
+  String name;
   SampleModel(String name) {
-    _name = name;
+    this.name = name;
+    print(this.toString());
   }
-  void Restore(Backup backup) {
-    _name = backup.getName;
-  }
+  void Restore(Backup backup) => name = backup.getName;
+  Backup Recover() => Backup(name);
 
-  Backup Recover() => Backup(_name);
   @override
-  String toString() => 'Güncel isim: $_name | hashCode: ${this.hashCode}';
+  String toString() => 'Güncel isim: $name | hashCode: ${this.hashCode}';
 }
-
+// ---------------------------------------------------------------------------------------------------
 class Backup {
   String _name;
   DateTime _lastEdit;
@@ -39,9 +35,9 @@ class Backup {
     setDate = DateTime.now();
   }
 }
-
-class Taker {
+// ---------------------------------------------------------------------------------------------------
+class Recycler {
   Backup _backup;
   Backup get getBackup => _backup;
-  set setBackup(Backup backup) => _backup = backup;
+  void set setBackup(Backup backup) => _backup = backup;
 }

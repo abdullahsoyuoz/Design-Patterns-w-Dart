@@ -7,9 +7,7 @@ void main(List<String> args) {
   print(mercedes);
   print(bmw);
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 class VehicleBuilder {
   String brand;
   String model;

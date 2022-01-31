@@ -4,9 +4,7 @@ void main(List<String> args) {
   macbook16 = IncreaseMemory(macbook16, 32);
   print('DEBUG : LATEST - macbook ram capacity: ' + macbook16.ramMemoryCapacity.toString());
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 class Computer {
   String brand;
   String model;
@@ -24,9 +22,7 @@ class Computer {
     return '${this.brand} ${this.model} ${this.cpuClockBase.toString()} Ghz ${this.ramMemoryCapacity.toInt().toString()} Gb Memory';
   }
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 class IncreaseMemory extends Computer {
   Computer instance;
   double increase;

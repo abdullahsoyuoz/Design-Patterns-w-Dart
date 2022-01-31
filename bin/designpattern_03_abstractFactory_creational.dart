@@ -2,9 +2,7 @@ void main(List<String> args) {
   var factoryProvider = DatabaseFactoryProvider(MongoDB(), '192.168.1.1', FetchAllData());
   factoryProvider.Process();
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 class DatabaseFactoryProvider {
   final IDatabase _factory;
   String connectionUrl;
@@ -18,10 +16,8 @@ class DatabaseFactoryProvider {
     _factory.ExecuteQuery().Execute(query);
   }
 }
-
 // ---------------------------------------------------------------------------------------------------
-// COULD BE SINGLETON
-
+  // Could be Singleton
 class IDatabase {
   IConnector ConnectViaConnector() {
     return IConnector();
@@ -42,7 +38,6 @@ class MongoDB implements IDatabase {
     return MongoConnector();
   }
 }
-
 // ---------------------------------------------------------------------------------------------------
   // Operations
 

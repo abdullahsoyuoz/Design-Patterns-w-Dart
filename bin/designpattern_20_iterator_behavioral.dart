@@ -11,17 +11,14 @@ void main(List<String> args) {
     2: EntityBase(5),
   };
 
-  var list = EntityList();
-  list.Setter(listofEntity);
-
-  var map = EntityMap();
-  map.Setter(mapofEntity);
+  var list = EntityList()..Setter(listofEntity);
+  var map = EntityMap()..Setter(mapofEntity);
 
   SampleIterator(listofEntity).GetEntity(list.Getter());
   SampleIterator(mapofEntity.values.toList()).GetEntity(map.Getter());
 }
-
-// CUSTOM ENUMARATOR
+// ---------------------------------------------------------------------------------------------------
+  // CUSTOM ENUMARATOR
 abstract class IEnumarator {
   bool hasNext();
   Object getNext();
@@ -63,7 +60,7 @@ class SampleIterator implements IEnumarator {
     }
   }
 }
-
+// ---------------------------------------------------------------------------------------------------
 class EntityBase {
   int id;
   EntityBase(this.id);
@@ -74,15 +71,15 @@ class EntityList {
   EntityList() {
     list = <EntityBase>[];
   }
-  SampleIterator Getter() => SampleIterator(list);
+  IEnumarator Getter() => SampleIterator(list);
   void Setter(List<EntityBase> item) => list = item;
 }
 
 class EntityMap {
-  Map<int, EntityBase> list;
+  Map<int, EntityBase> map;
   EntityMap() {
-    list = <int, EntityBase>{};
+    map = <int, EntityBase>{};
   }
-  SampleIterator Getter() => SampleIterator(list.values.toList());
-  void Setter(Map<int, EntityBase> item) => list = item;
+  IEnumarator Getter() => SampleIterator(map.values.toList());
+  void Setter(Map<int, EntityBase> item) => map = item;
 }

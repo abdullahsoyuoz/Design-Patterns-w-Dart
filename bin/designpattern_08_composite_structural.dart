@@ -16,9 +16,7 @@ void main(List<String> args) {
 
   boss.doAction();
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 abstract class ModelBase {
   String name;
   void doAction();

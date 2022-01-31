@@ -1,27 +1,23 @@
 void main(List<String> args) {
-  HandleBase handleController;
+  MessageSender senderController;
 
-  handleController = ConditionA();
-  handleController.Calculate();
+  senderController = ViaSMS();
+  senderController.Sender();
 
-  handleController = ConditionB();
-  handleController.Calculate();
+  senderController = ViaMail();
+  senderController.Sender();
 }
-
-abstract class HandleBase {
-  void Calculate();
+// ---------------------------------------------------------------------------------------------------
+abstract class MessageSender {
+  void Sender();
 }
-
-class ConditionA implements HandleBase {
+// ---------------------------------------------------------------------------------------------------
+class ViaSMS implements MessageSender {
   @override
-  void Calculate() {
-    print('ConditionA calculate');
-  }
+  void Sender() => print('Message Sending via SMS');
 }
 
-class ConditionB implements HandleBase {
+class ViaMail implements MessageSender {
   @override
-  void Calculate() {
-    print('ConditionB calculate');
-  }
+  void Sender() => print('Message Sending via Mail');
 }

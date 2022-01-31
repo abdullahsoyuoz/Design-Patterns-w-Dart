@@ -8,16 +8,12 @@ void main(List<String> args) {
   print(greenTable);
   print(blueTable);
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 abstract class Model {
   String title;
   String description;
   Model clone();
 }
-
-// ---------------------------------------------------------------------------------------------------
 
 class Product implements Model {
   @override

@@ -5,9 +5,7 @@ void main(List<String> args) {
   var processList = ['process1', 'process2'];
   for (var i = 0; i < 10; i++) spp.Calculate(processList[Random().nextInt(2)]);
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 abstract class ICalculator {
   String Calculate(String message);
 }
@@ -20,9 +18,7 @@ class Calculator implements ICalculator {
     return message;
   }
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 class CalculatorProxy implements Calculator {
   // or Calculator extends
   Calculator sampleProcess;

@@ -4,7 +4,7 @@ void main(List<String> args) {
   var sampleB = DatabaseConnection();
   print('database connection\'s identical? : ${sampleA == sampleB}');
 }
-
+// ---------------------------------------------------------------------------------------------------
 class DatabaseConnection {
   static final DatabaseConnection _connectionObject =
       DatabaseConnection._internal();

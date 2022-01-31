@@ -1,20 +1,25 @@
+// ignore_for_file: missing_return
+
 void main(List<String> args) {
   var calculator = Calculator();
   calculator.Calculate(Operation.PLUS, 120);
   calculator.Calculate(Operation.DIVIDE, 2);
   calculator.Calculate(Operation.MINUS, 10);
   calculator.Calculate(Operation.TIMES, 3);
-  calculator.Undo(4); // 5 için düzenleme
-  calculator.Redo(4);
+  calculator.Undo(2);
+  calculator.Redo(2);
 }
 
+// ---------------------------------------------------------------------------------------------------
 enum Operation { PLUS, MINUS, TIMES, DIVIDE }
 
+// ---------------------------------------------------------------------------------------------------
 class ICommand {
   void ForwardCalculate() {}
   void BackwardCalculate() {}
 }
 
+// ---------------------------------------------------------------------------------------------------
 class CalculateCommand implements ICommand {
   Operation operation;
   double operand;
@@ -22,7 +27,6 @@ class CalculateCommand implements ICommand {
 
   CalculateCommand(this.calculateProvider, this.operation, this.operand);
 
-  // ignore: missing_return
   Operation Undo(Operation operation) {
     switch (operation) {
       case Operation.PLUS:
@@ -53,6 +57,7 @@ class CalculateCommand implements ICommand {
   }
 }
 
+// ---------------------------------------------------------------------------------------------------
 class CalculateProvider {
   double currentValue = 0;
   double lastValue = 0;
@@ -97,30 +102,42 @@ class CalculateProvider {
   }
 }
 
+// ---------------------------------------------------------------------------------------------------
 class Calculator {
   CalculateProvider calculateProvider = CalculateProvider();
   List<ICommand> commandList = <ICommand>[];
   double currentState = 0;
 
   void Redo(int howManyTimes) {
-    print('------------------------- Move forward $howManyTimes times');
-    for (var index = 0; index < howManyTimes; index++) {
-      if (currentState < commandList.length) {
-        var command = commandList[currentState.toInt()];
-        command.ForwardCalculate();
+    if (howManyTimes <= commandList.length) {
+      print('------------------------- Move forward $howManyTimes times');
+      for (var index = 0; index < howManyTimes; index++) {
+        if (currentState < commandList.length) {
+          var command = commandList[currentState.toInt()];
+          command.ForwardCalculate();
+        }
+        currentState++;
       }
-      currentState++;
+    } else {
+      print(
+          "------------------------- overflow from total of steps for 'redo' !!");
     }
   }
 
   void Undo(int howManyTimes) {
-    print('-------------------------  Take it back $howManyTimes times');
-    for (var index = 0; index < howManyTimes; index++) {
-      if (currentState > 0) {
-        var command = commandList[currentState.toInt() - 1] as CalculateCommand;
-        command.BackwardCalculate();
+    if (howManyTimes <= commandList.length) {
+      print('-------------------------  Take it back $howManyTimes times');
+      for (var index = 0; index < howManyTimes; index++) {
+        if (currentState > 0) {
+          var command =
+              commandList[currentState.toInt() - 1] as CalculateCommand;
+          command.BackwardCalculate();
+        }
+        currentState--;
       }
-      currentState--;
+    } else {
+      print(
+          "------------------------- overflow from total of steps for 'undo' !!");
     }
   }
 

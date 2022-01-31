@@ -1,5 +1,4 @@
 // ignore_for_file: unused_local_variable
-
 void main(List<String> args) {
   var modelList = [
     Model('Samsung Galaxy Series'),
@@ -11,9 +10,7 @@ void main(List<String> args) {
     ..AddModels(modelList)
     ..Notify('\t--Upgrade to new Android!');
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 class ObserverManager {
   List<IModel> modelList = <IModel>[];
   ObserverManager();
@@ -24,9 +21,7 @@ class ObserverManager {
     });
   }
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 class IModel {
   void Update(String message) {}
 }

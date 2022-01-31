@@ -5,9 +5,7 @@ void main(List<String> args) {
   var monitorScreenFactoryProvider = FactoryProvider(MonitorScreenFactory());
   monitorScreenFactoryProvider.Producer();
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 class FactoryProvider {
   FactoryProvider(this._factory);
   final IFactory _factory;
@@ -17,9 +15,7 @@ class FactoryProvider {
     screen.Produce();
   }
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 class IFactory {
   IScreen CreateScreen() {
     return IScreen();
@@ -39,9 +35,7 @@ class MonitorScreenFactory implements IFactory {
     return MonitorScreen();
   }
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 class IScreen {
   void Produce() {}
 }

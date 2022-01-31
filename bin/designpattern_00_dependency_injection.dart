@@ -7,26 +7,20 @@ void main(List<String> arguments) {
   databaseProvider = DatabaseProvider(MongoDB());
   databaseProvider.Query();
 }
-
 // ---------------------------------------------------------------------------------------------------
-  // DEPENDENCY INJECTION
-
+  // DEPENDENCY INJECTION -- THE MAIN THING IS THIS BLOCK!
 class DatabaseProvider {
   final IDatabase _IDatabase;
   DatabaseProvider(this._IDatabase);
   void Query() => _IDatabase.Query();
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 class IDatabase {
   void Query() {
     print('At runtime this process not running...');
   }
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 class Firestore implements IDatabase {
   Firestore() {
     print('Firestore running...');
@@ -37,7 +31,6 @@ class Firestore implements IDatabase {
     print('Firestore Query() is running...');
   }
 }
-
 // can be replicate in this way.
 class MongoDB implements IDatabase {
   MongoDB() {

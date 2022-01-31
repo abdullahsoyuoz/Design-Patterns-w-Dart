@@ -3,9 +3,7 @@ void main(List<String> args) {
   final speakerController = RemoteController(action: Speaker())..turnOn();
   final monitorController = RemoteController(action: Monitor())..turnOn();
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 abstract class IController {
   IAction action;
   void turnOn() => action.doAction();
@@ -19,9 +17,7 @@ class RemoteController extends IController {
   @override
   void turnOn() => action.doAction();
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 abstract class IAction {
   void doAction();
 }

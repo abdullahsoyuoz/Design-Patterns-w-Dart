@@ -4,10 +4,8 @@ void main(List<String> args) {
   print("\n");
   ss.disactive();
 }
-
 // ---------------------------------------------------------------------------------------------------
   // FACADE STRUCT
-
 class System {
   final _powerManagement = PowerManagement();
   final _processor = Processor();
@@ -22,9 +20,7 @@ class System {
     _processor.dispose();
   }
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 class PowerManagement {
   PowerManagement();
   void powerOn() {

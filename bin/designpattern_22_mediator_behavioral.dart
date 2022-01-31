@@ -19,13 +19,12 @@ void main(List<String> args) {
   plane1.RequestNewWay('34:43E;41:41W');
   plane2.RequestNewWay('34:43E;41:41W');
 }
-
+// ---------------------------------------------------------------------------------------------------
 abstract class IAirport {
   Map<String, IAirline> _planes;
   void Register(IAirline airline);
   void SuggestWay(String flightNumber, String way);
 }
-
 class IstanbulControl extends IAirport {
   IstanbulControl() {
     _planes = <String, IAirline>{};
@@ -46,7 +45,7 @@ class IstanbulControl extends IAirport {
         '${Random().nextInt(50).toString()}:${Random().nextInt(50).toString()}E;${Random().nextInt(50).toString()}:${Random().nextInt(50).toString()}W');
   }
 }
-
+// ---------------------------------------------------------------------------------------------------
 abstract class IAirline {
   IAirport _airport;
   IAirport get airport => _airport;

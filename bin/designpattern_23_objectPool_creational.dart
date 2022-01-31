@@ -1,63 +1,52 @@
 void main(List<String> args) {
-  var pool = SamplePool();
+  var pool = ObjectPool();
 
-  pool.avaliableList.forEach((element) =>
-      print('avaliable => ${element.id} : ${element.isAvaliable}'));
-  print('------------------------------------');
+  print('Free Pool count => ${pool.avaliableList.length}');
+  print('Used Pool count => ${pool.usedList.length}');
   pool.getModel();
-  pool.avaliableList.forEach((element) =>
-      print('avaliable => ${element.id} : ${element.isAvaliable}'));
-  print('------------------------------------');
-  pool.usedList.forEach(
-      (element) => print('used => ${element.id} : ${element.isAvaliable}'));
-  print('------------------------------------');
+  print('Free Pool count => ${pool.avaliableList.length}');
+  print('Used Pool count => ${pool.usedList.length}');
   pool.getModel();
-  pool.avaliableList.forEach((element) =>
-      print('avaliable => ${element.id} : ${element.isAvaliable}'));
-  print('------------------------------------');
-  pool.usedList.forEach(
-      (element) => print('used => ${element.id} : ${element.isAvaliable}'));
-  print('------------------------------------');
+  print('Free Pool count => ${pool.avaliableList.length}');
+  print('Used Pool count => ${pool.usedList.length}');
   pool.beFree();
-  pool.avaliableList.forEach((element) =>
-      print('avaliable => ${element.id} : ${element.isAvaliable}'));
-  print('------------------------------------');
-  pool.usedList.forEach(
-      (element) => print('used => ${element.id} : ${element.isAvaliable}'));
-  print('------------------------------------');
+  print('Free Pool count => ${pool.avaliableList.length}');
+  print('Used Pool count => ${pool.usedList.length}');
 }
 
-class SampleModel {
+class SampleObject {
   int id;
   bool isAvaliable;
-  SampleModel(this.id, this.isAvaliable);
+  SampleObject(this.id, this.isAvaliable);
 }
 
-class SamplePool {
-  List<SampleModel> usedList;
-  List<SampleModel> avaliableList;
-  int capacity = 2;
+class ObjectPool {
+  List<SampleObject> usedList;
+  List<SampleObject> avaliableList;
+  int capacity = 3;
 
-  SamplePool() {
-    usedList = <SampleModel>[];
-    avaliableList = <SampleModel>[];
+  ObjectPool() {
+    usedList = <SampleObject>[];
+    avaliableList = <SampleObject>[];
 
     for (var i = 0; i < capacity; i++) {
-      avaliableList.add(SampleModel(i, true));
+      avaliableList.add(SampleObject(i, true));
     }
   }
 
   void getModel() {
     if (avaliableList.isNotEmpty) {
       usedList.add(avaliableList.first);
-      usedList.last.isAvaliable = false;
+      usedList.last.isAvaliable = false;  // !!!!
       avaliableList.remove(avaliableList.first);
+      print('-----take an object from pool to be use');
     }
   }
 
   void beFree() {
     avaliableList.add(usedList.first);
     usedList.remove(usedList.first);
-    avaliableList.last.isAvaliable = true;
+    avaliableList.last.isAvaliable = true;  // !!!!
+    print('-----freed an object from used to be free');
   }
 }

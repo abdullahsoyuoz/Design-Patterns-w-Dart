@@ -2,15 +2,12 @@ import 'dart:convert';
 import 'package:xml/xml.dart';
 import 'Model/17_adapter_model.dart';
 import 'Mixins/AdapterMixin.dart';
-
 void main(List<String> args) {
   XmlContactAdapter(XmlContactApi(xmlContact)).getContact();
   print('------------------------------------------');
   JsonContactAdapter(JsonContactApi(jsonContact)).getContact();
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 class IContactApi {
   final contact;
   IContactApi(this.contact);
@@ -25,9 +22,7 @@ class XmlContactApi extends IContactApi {
   XmlContactApi(contact) : super(contact);
   dynamic getContactsXml() => super.contact;
 }
-
 // ---------------------------------------------------------------------------------------------------
-
 abstract class IContactAdapter with AdapterToString {
   void getContact();
 }
