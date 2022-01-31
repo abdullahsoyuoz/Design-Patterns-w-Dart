@@ -1,15 +1,16 @@
-import 'Model/Person.dart';
+import 'Model/Employee.dart';
 
 void main(List<String> args) {
-  var employeeJack = Junior(Person('Employee Jack', 45));
-  var seniorMatt = Senior(Person('Chef Matt', 90));
-  var employeeKemal = Junior(Person('Employee Kemal', 55));
+  var employeeJames = Junior(Employee('Employee James', 45));
+  var seniorMatt = Senior(Employee('Chef Matt', 90));
+  var employeeKemal = Junior(Employee('Employee JsonKemal', 55));
 
-  employeeJack.setSenior(seniorMatt);
-  employeeJack.Handle();
+  employeeJames.setSenior(seniorMatt);
+  employeeJames.Handle();
   employeeKemal.setSenior(seniorMatt);
   employeeKemal.Handle();
 }
+
 // ---------------------------------------------------------------------------------------------------
 class PositionBase {
   PositionBase _senior;
@@ -20,28 +21,28 @@ class PositionBase {
 }
 
 class Junior extends PositionBase {
-  Person person;
-  Junior(this.person);
+  Employee employee;
+  Junior(this.employee);
 
   @override
   void Handle() {
-    print('${person.name} is trying.. ability : ${person.ability}');
-    if (person.ability < 50) {
-      print('${person.name}\'s can\'t do this because insufficient ability!');
+    print('${employee.name} is trying.. ability : ${employee.ability}');
+    if (employee.ability < 50) {
+      print('${employee.name}\'s can\'t do this because insufficient ability!');
       _senior.Handle();
-    } else if (person != null) {
-      print('Handled from ${person.name}');
+    } else if (employee != null) {
+      print('Handled from ${employee.name}');
     }
   }
 }
 
 class Senior extends PositionBase {
-  Person person;
+  Employee employee;
 
-  Senior(this.person);
+  Senior(this.employee);
 
   @override
   void Handle() {
-    print('Handled from ${person.name}');
+    print('Handled from ${employee.name}');
   }
 }
