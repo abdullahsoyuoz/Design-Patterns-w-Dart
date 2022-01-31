@@ -13,13 +13,13 @@ void main(List<String> args) {
   print('Free Pool count => ${pool.avaliableList.length}');
   print('Used Pool count => ${pool.usedList.length}');
 }
-
+// ---------------------------------------------------------------------------------------------------
 class SampleObject {
   int id;
   bool isAvaliable;
   SampleObject(this.id, this.isAvaliable);
 }
-
+// ---------------------------------------------------------------------------------------------------
 class ObjectPool {
   List<SampleObject> usedList;
   List<SampleObject> avaliableList;
